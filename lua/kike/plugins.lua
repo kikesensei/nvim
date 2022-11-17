@@ -69,7 +69,7 @@ return packer.startup(function(use)
   -- LSP
   use "neovim/nvim-lspconfig"                       -- enable LSP
   use "williamboman/mason.nvim"                     -- simple to use language server installer
-  use "williamboman/mason-lpsconfig.nvim"           -- simple to use language server installer
+  use "williamboman/mason-lspconfig.nvim"           -- simple to use language server installer
   use "jose-elias-alvarez/null-ls.nvim"             -- enable formatters and linters
   use "RRethy/vim-illuminate"                       -- automatic highlighting for repeated user of a word
 
