@@ -30,29 +30,52 @@ if not status_ok then
 end
 
 -- Have packer use a popup window
-packer.init {
+packer.init({
   display = {
     open_fn = function()
-      return require("packer.util").float { border = "rounded" }
+      return require("packer.util").float({ border = "rounded" })
     end,
   },
-}
+})
 
 -- Install your plugins here
 return packer.startup(function(use)
-  -- General plugins
-  use "wbthomason/packer.nvim"         -- Have packer manage itself
-  use "nvim-lua/popup.nvim"            -- An implementation of the Popup API from vim in Neovim
-  use "nvim-lua/plenary.nvim"          -- Useful lua functions used ny lots of plugins
-  use "ishan9299/nvim-solarized-lua"   -- Solarized dark theme for NeoVim
-  use "nvim-telescope/telescope.nvim"  -- Fuzzy finder over lists
-  use "nvim-lualine/lualine.nvim"      -- Status line plugin
-  use "kyazdani42/nvim-tree.lua"       -- File tree plugin
-  use "kyazdani42/nvim-web-devicons"   -- Icons for Neovim
-  use "windwp/nvim-autopairs"          -- Autopairs, integrates with both cmp and treesitter
-  use "numToStr/Comment.nvim"          -- Easily comment stuff
-  use "lewis6991/gitsigns.nvim"        -- Add version control indicators
-  use "akinsho/bufferline.nvim"        -- Add a bufferline for opened files
+  use "wbthomason/packer.nvim"                      -- Have packer manage itself
+  use "nvim-lua/plenary.nvim"                       -- Useful lua functions used ny lots of plugins
+  use "windwp/nvim-autopairs"                       -- Autopairs, integrates with both cmp and treesitter
+  use "numToStr/Comment.nvim"                       -- Easily comment stuff
+  use "JoosepAlviste/nvim-ts-context-commentstring" -- Commentsting for embedded languages
+  use "kyazdani42/nvim-web-devicons"                -- Icons for Neovim
+  use "kyazdani42/nvim-tree.lua"                    -- File tree plugin
+  use "akinsho/bufferline.nvim"                     -- Add a bufferline for opened files
+  use "nvim-lualine/lualine.nvim"                   -- Status line plugin
+  use "lukas-reineke/indent-blankline.nvim"         -- Add indentation guides
+  use "ishan9299/nvim-solarized-lua"                -- Solarized dark theme for NeoVim
+  use "nvim-telescope/telescope.nvim"               -- Fuzzy finder over lists
+  use "lewis6991/gitsigns.nvim"                     -- Add version control indicators
+
+  use "nvim-lua/popup.nvim"                         -- An implementation of the Popup API from vim in Neovim
+
+  -- CMP plugins
+  use "hrsh7th/nvim-cmp"                            -- The completion plugin
+  use "hrsh7th/cmp-buffer"                          -- buffer completions
+  use "hrsh7th/cmp-path"                            -- path completions
+  use "hrsh7th/cmp-cmdline"                         -- cmdline completions
+  use "saadparwaiz1/cmp_luasnip"                    -- snippet completions
+  use "hrsh7th/cmp-nvim-lsp"                        -- LSP completions
+  use "hrsh7th/cmp-nvim-lua"                        -- Neovim's LUA runtime API
+  use "p00f/nvim-ts-rainbow"                        -- Rainbow brackets for Neovim using treesitter
+
+  -- LSP
+  use "neovim/nvim-lspconfig"                       -- enable LSP
+  use "williamboman/mason.nvim"                     -- simple to use language server installer
+  use "williamboman/mason-lpsconfig.nvim"           -- simple to use language server installer
+  use "jose-elias-alvarez/null-ls.nvim"             -- enable formatters and linters
+  use "RRethy/vim-illuminate"                       -- automatic highlighting for repeated user of a word
+
+  -- Snippets
+  use "L3MON4D3/LuaSnip"                            -- snippet engine
+  use "rafamadriz/friendly-snippets"                -- a bunch of snippets to use
 
   -- Add a terminal inside nvim
   use { "akinsho/toggleterm.nvim", tag = "*" }
@@ -60,40 +83,18 @@ return packer.startup(function(use)
   -- Easymotion like plugin to jump anywhere in the file
   use { "phaazon/hop.nvim", branch = "v2"}
 
-  -- Add indentation guides
-  use "lukas-reineke/indent-blankline.nvim"
-
-  -- CMP plugins
-  use "hrsh7th/nvim-cmp"               -- The completion plugin
-  use "hrsh7th/cmp-buffer"             -- buffer completions
-  use "hrsh7th/cmp-path"               -- path completions
-  use "hrsh7th/cmp-cmdline"            -- cmdline completions
-  use "saadparwaiz1/cmp_luasnip"       -- snippet completions
-  use "hrsh7th/cmp-nvim-lsp"           -- LSP completions
-  use "hrsh7th/cmp-nvim-lua"           -- Neovim's LUA runtime API
-  use "p00f/nvim-ts-rainbow"           -- Rainbow brackets for Neovim using treesitter
-
-  -- LSP
-  use "neovim/nvim-lspconfig"           -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
-  use "jose-elias-alvarez/null-ls.nvim" -- enable formatters and linters
-
-  -- Snippets
-  use "L3MON4D3/LuaSnip"               -- snippet engine
-  use "rafamadriz/friendly-snippets"   -- a bunch of snippets to use
-
   -- Treesitter (syntax highlighting)
   use {
     "nvim-treesitter/nvim-treesitter",
-    run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
+    run = function()
+      require("nvim-treesitter.install").update({ with_sync = true })
+    end,
   }
-
-  -- Commentsting for embedded languages
-  use "JoosepAlviste/nvim-ts-context-commentstring"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
+
 end)
