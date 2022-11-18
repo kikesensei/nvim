@@ -48,6 +48,8 @@ M.setup = function()
     vim.lsp.handlers.signature_help,
     { border = "rounded", }
   )
+
+  vim.lsp.set_log_level("debug")
 end
 
 local function lsp_keymaps(bufnr)
