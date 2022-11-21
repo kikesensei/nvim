@@ -26,3 +26,4 @@ null_ls.setup({
     diagnostics.mypy,
   },
 })
+
